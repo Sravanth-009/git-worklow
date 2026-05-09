@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display User Details (HTML & JS)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to the top of the container */
+            min-height: 80vh; /* Adjust as needed */
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1, h2 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: calc(100% - 22px); /* Account for padding and border */
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .display-area {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e9f5ff; /* Light blue background for display */
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+        }
+        .display-area p {
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        .display-area p strong {
+            color: #333;
+            display: inline-block;
+            width: 100px; /* Align labels */
+        }
+        .edit-button {
+            background-color: #6c757d;
+            margin-top: 20px;
+        }
+        .edit-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="formTitle">Enter Your Details</h1>
+
+        <form id="detailsForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required placeholder="e.g., John Doe">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="e.g., john.doe@example.com">
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="1" max="120" required placeholder="e.g., 30">
+
+            <button type="submit">Show Details</button>
+        </form>
+
+        <div class="display-area" id="displayArea">
+            <h2>Your Entered Details:</h2>
+            <p><strong>Name:</strong> <span id="displayName"></span></p>
+            <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+            <p><strong>Age:</strong> <span id="displayAge"></span></p>
+            <button class="edit-button" onclick="editDetails()">Edit Details</button>
+        </div>
+    </div>
+
+    <script>
+        // Get references to HTML elements
+        const detailsForm = document.getElementById('detailsForm');
+        const displayArea = document.getElementById('displayArea');
+        const formTitle = document.getElementById('formTitle');
+
+        const inputName = document.getElementById('name');
+        const inputEmail = document.getElementById('email');
+        const inputAge = document.getElementById('age');
+
+        const displayName = document.getElementById('displayName');
+        const displayEmail = document.getElementById('displayEmail');
+        const displayAge = document.getElementById('displayAge');
+
+        // Add an event listener for when the form is submitted
+        detailsForm.addEventListener('submit', function(event) {
+            // Prevent the default form submission behavior (which would reload the page)
+            event.preventDefault();
+
+            // Get the values from the form input fields
+            const name = inputName.value;
+            const email = inputEmail.value;
+            const age = inputAge.value;
+
+            // Update the content of the display spans with the captured values
+            displayName.textContent = name;
+            displayEmail.textContent = email;
+            displayAge.textContent = age;
+
+            // Hide the form and show the display area
+            detailsForm.style.display = 'none';
+            displayArea.style.display = 'block';
+            formTitle.textContent = "Details Submitted!"; // Change title
+        });
+
+        // Function to go back and edit the details
+        function editDetails() {
+            // Hide the display area and show the form
+            displayArea.style.display = 'none';
+            detailsForm.style.display = 'block';
+            formTitle.textContent = "Enter Your Details"; // Restore title
+        }
+    </script>
+
+</body>
+</html>
